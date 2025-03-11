@@ -1,10 +1,10 @@
 # Proyecto de Automatización para la Identificación de Sitios de Unión de Factores de Transcripción en E. coli en experimentos de ChIP-Seq
 
-Fecha: [dd/mm/yyyy]
+Fecha: 11/03/2025
 
 Participantes: 
 
-- [nombre]  <email: > 
+- [Andrea Villarruel García]  <email:andreavg@lcg.unam.mx> 
 
 ## Descripción del Problema
 <!-- Puedes empezar con una introducción, luego la justificación y plantear el problema. -->
@@ -24,14 +24,20 @@ El proyecto busca automatizar la extracción y el análisis de secuencias genóm
         -   Archivo de picos que contiene la información de las regiones de unión de cada factor de transcripción (ver sección "Archivo de Picos" al final de la sección de requisitos).
         -   Archivo de la secuencia del genoma de _E. coli_ en formato FASTA.
     -   Añadir un argumento para especificar el directorio de salida donde se almacenarán los archivos generados.
+  
+      
 2.  **Extracción y Procesamiento de Secuencias:**
     
     -   Leer el archivo de picos para obtener las posiciones de inicio y fin de los picos asociados a cada `TF_name`.
     -   Extraer las secuencias desde el archivo FASTA del genoma utilizando las coordenadas `Peak_start` y `Peak_end`, asegurándose de considerar solamente la cadena forward.
+    -  #Validar que las coordenadas de `Peak_start` y `Peak_end` estén dentro del rango del genoma. En caso de que no lo estén, se debe mostrar un mensaje que indique el error. 
+    
 3.  **Generación de Archivos FASTA:**
     
     -   Crear archivos FASTA individuales para cada `TF_name`. Los nombres de los archivos deben coincidir con el `TF_name` y usar la extensión `.fa`.
     -   Almacenar estos archivos en el directorio de salida especificado.
+    -   #Incluir `Dataset_Ids` al nombre del archivo en el dado caso de que un `TF_name` aparezca en más de un experimento.
+    -   #Almacenar estos archivos en el directorio de salida especificado. 
     
 
 
@@ -66,6 +72,7 @@ El proyecto busca automatizar la extracción y el análisis de secuencias genóm
     -   Utilización de Git para el seguimiento y revisión del código.
     -   Documentación clara y comentarios efectivos deben acompañar todo el proyecto.
     -   Deben realizarse pruebas las pruebas necesarias para la validación correcta del software.
+    -   #Deben de manejarse errores de entrada y fallos en la ejecución de comandos para evitar interrupciones inesperadas. 
 
 
 
