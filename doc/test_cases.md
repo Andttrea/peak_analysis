@@ -54,3 +54,42 @@ ls
 log.out
 fasta_peaks/
 ```
+
+4. **Caso: Formato incorrecto en el archico de picos**
+
+   - **Entradas**
+   - Archivo de picos con un formato incorrecto (columnas faltantes o vacías).
+   - Archivo FASTA del genoma válido.
+   - Directorio de salida.
+     
+   - **Esperado**
+   - Nuestro sistema debe de imprimir el siguiente mensaje: `"Error: Formato peak file inválido"`
+
+
+     ```python
+         mk_fasta_from_peaks.py -i malformed_peak_ file.txt -g Ecoli.fna -o fasta_peaks/
+     ```
+
+     ```
+     Error: Formato peak file inválido
+
+     ```
+
+     5. ** Caso: Permisos insuficientes para escribir en el directorio de salida **
+
+     - **Entradas**
+     - Archivo de picos válido.
+     - Archivo FASTA del genoma válido.
+     - Directorio de salida sin permisos de escritura.
+
+     - **Esperado**
+     - Nuestro sitema debe de imprimir el siguiente mensaje: `"Error: No se puede escribir al directorio de salida"`
+    
+     ```python
+         mk_fasta_from_ peaks.py -i peak_file.txt -g Ecoli.fna -o /protected_dir/
+     ```
+
+     ```
+       Error: No se puede escribir al directorio de salida
+
+     ```
