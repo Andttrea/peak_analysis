@@ -231,15 +231,26 @@ En formato marmaid, que stackEdit sí reconoce.
 
 ```mermaid
 %% Diagrama de Casos de Uso en Mermaid
-%% Representa la interacción del usuario con el sistema de extracción y creación de FASTA
+%% Representa la interacción del usuario con el sistema de extracción y análisis de secuencias FASTA
 
 graph TD
   usuario["🧑 Usuario"] -->|Ejecuta script Python| UC1["📂 Leer archivo de picos y genoma FASTA"]
-  UC1 --> UC2["🔍 Extraer y agrupar secuencias por TF_name"]
-  UC2 -->|Guarda archivos FASTA| UC3["📄 Generar archivos FASTA"]
+  UC1 -->|Verifica formato y existencia| UC1a["⚠️ Validar archivo de picos y genoma"]
+  UC1a -->|Si es válido, continuar| UC2["🔍 Extraer y agrupar secuencias por TF_name"]
+  UC1a -.->|Si hay error, registrar en log| LOG1["📜 Generar log de errores"]
+
+  UC2 -->|Verifica límites del genoma| UC2a["⚠️ Validar coordenadas de los picos"]
+  UC2a -->|Si es válido, continuar| UC3["📄 Generar archivos FASTA"]
+  UC2a -.->|Si hay error, registrar en log| LOG1
   
   usuario -->|Ejecuta script Shell| UC4["📂 Leer directorio de archivos FASTA"]
-  UC4 -->|Crea script de ejecución de meme| UC5["⚙️ Generar script de comandos meme"]
+  UC4 -->|Genera comandos para meme| UC5["⚙️ Generar script de comandos meme"]
+  UC5 -->|Guardar en archivo| UC6["💾 Guardar script run_meme.sh"]
+
+  LOG1 -.->|Errores registrados| usuario
+
 ```
+
+
 
 
