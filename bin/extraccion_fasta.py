@@ -9,8 +9,6 @@ cada secuencia en un archivo FASTA separado.
 
 import os #este es un modulo que nos va a ayudar a verificar si los directorios existen. Ya que interactua con el sistema operativo
 
-
-
 def cargar_genoma(fasta_path): 
     """ Carga el genoma desde un archivo FASTA y devuelve una única cadena de texto """
 
