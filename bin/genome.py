@@ -1,7 +1,16 @@
 import os
 
 def cargar_genoma(fasta_path): 
-    """ Carga el genoma desde un archivo FASTA y devuelve una única cadena de texto """
+    """
+    Carga la secuencia del genoma desde un archivo FASTA y la devuelve como una única cadena de texto.
+    
+    Parámetros:
+    fasta_path: Ruta al archivo FASTA del genoma.
+    
+    Retorna:
+    secuencia: Secuencia del genoma concatenada sin encabezados ni espacios.
+
+    """
 
     if not os.path.isfile(fasta_path): #Con esto vamos a validar si el archivo existe
         print(f"El archivo de genoma no se encontró: {fasta_path}")
@@ -14,7 +23,18 @@ def cargar_genoma(fasta_path):
 
 
 def leer_archivos(peaks_path):
-    """ Lee el archivo de picos y va a devolver una lista de diccionarios con TF_name, start y end """
+    """
+    Lee el archivo de picos y va a devolver una lista de diccionarios con TF_name, start y end
+   
+    Parámetros:
+    peaks_path (str): Ruta al archivo TSV de picos.
+    
+    Retorna:
+    list of dict: Lista de diccionarios. Cada diccionario contiene:
+                  - "TF_name": Nombre del factor de transcripción
+                  - "start": Posición de inicio del pico 
+                  - "end": Posición de fin del pico
+    """
     
     if not os.path.isfile(peaks_path): 
         print(f"El archivo de picos no se encontró: {peaks_path}")

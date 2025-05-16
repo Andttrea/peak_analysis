@@ -1,5 +1,14 @@
 def extraer_secuencias(peaks_data, genoma):
-    """Agrupa las secuencias extraídas por TF_name en un diccionario."""
+    """
+    En esta función agrupamos las secuencias extraídas por TF_name en un diccionario.
+
+    Parametros:
+    peaks_data: lista de diccionarios con la información de los picos
+    genoma: secuencia del genoma
+
+    Retorna:
+    secuencias_TF: diccionario con las secuencias agrupadas por TF_name
+"""
 
     secuencias_TF = {} #inicializamos en un diccionario vacio 
     for pico in peaks_data:

@@ -3,9 +3,22 @@ from genome import cargar_genoma, leer_archivos
 from peaks import extraer_secuencias
 from io_utils import guardar_fasta_por_tf
 # Este script extrae secuencias FASTA de picos de unión de factores de transcripción.
+# Se espera que el usuario proporcione la ruta del archivo FASTA del genoma y el archivo de análisis de picos.
+#Módulos necesarios:
+# genome.py: contiene funciones para cargar_genoma() y leer_archivos()
+# peaks.py: contiene la función extraer_secuencias()
+# io_utils.py: contiene la función guardar_fasta_por_tf()
 
 def main():
-    # Solicitar al usuario las rutas de los archivos
+    """
+    Función principal que orquesta todo el proceso:
+    
+    1. Define las rutas de los archivos de entrada y salida.
+    2. Carga el genoma y los datos de los picos.
+    3. Extrae las secuencias del genoma según las coordenadas de los picos.
+    4. Guarda cada secuencia en archivos FASTA organizados por factor de transcripción.
+    """
+
 
     print("Este script extrae secuencias FASTA de picos de unión de factores de transcripción.")
 
