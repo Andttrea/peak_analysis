@@ -38,7 +38,7 @@ def leer_archivos(peaks_path):
     
     if not os.path.isfile(peaks_path): 
         print(f"El archivo de picos no se encontró: {peaks_path}")
-        exit(1)
+        return 0 
     
     lista_picos = [] #vamos a inicializar una lista vacia
     with open(peaks_path, 'r') as archivo_picos: 

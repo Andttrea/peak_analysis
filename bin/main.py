@@ -21,9 +21,10 @@ def main():
 
     # Agregando un parser para evitar el hardcoding - HJLO
     parser = argparse.ArgumentParser(description='Este script extrae secuencias FASTA de picos de unión de factores de transcripción.')
-    parser.add_argument('-f', '--fasta', required=True, help='PATH del archivo FASTA', type=str)
+    parser.add_argument('-f', '--fasta', required=True, help='PATH del archivo FASTA', type=str) #utilizamos type para enfatizar que tipo de dato argerparser espera
     parser.add_argument('-p', '--peaks', required=True, help='PATH del archivo FASTA', type=str)
-    parser.add_argument('-o', '--output', required=True, help='PATH del archivo FASTA', type=str)
+    parser.add_argument('-o', '--output', required=True, help='PATH del archivo FASTA', type=str) 
+    
     
     args = parser.parse_args()
     
@@ -36,6 +37,10 @@ def main():
     genoma = cargar_genoma(archivo_genoma)
     picos = leer_archivos(archivo_picos)
 
+    if not genoma:
+        print("El archivo de picos no se encontro {archivo_picos}")
+        exit(1)
+    
     # Extraer las secuencias
     secuencias_por_tf = extraer_secuencias(picos, genoma)
 
