@@ -21,9 +21,9 @@ def main():
 
     # Agregando un parser para evitar el hardcoding - HJLO
     parser = argparse.ArgumentParser(description='Este script extrae secuencias FASTA de picos de unión de factores de transcripción.')
-    parser.add_argument('-f', '--fasta', required=True, help='PATH del archivo FASTA')
-    parser.add_argument('-p', '--peaks', required=True, help='PATH del archivo FASTA')
-    parser.add_argument('-o', '--output', required=True, help='PATH del archivo FASTA')
+    parser.add_argument('-f', '--fasta', required=True, help='PATH del archivo FASTA', type=str)
+    parser.add_argument('-p', '--peaks', required=True, help='PATH del archivo FASTA', type=str)
+    parser.add_argument('-o', '--output', required=True, help='PATH del archivo FASTA', type=str)
     
     args = parser.parse_args()
     
