@@ -1,4 +1,3 @@
-import os 
 import argparse
 from genome import cargar_genoma, leer_archivos
 from peaks import extraer_secuencias
