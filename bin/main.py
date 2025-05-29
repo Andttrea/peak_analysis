@@ -1,4 +1,5 @@
 import os 
+import argparse
 from genome import cargar_genoma, leer_archivos
 from peaks import extraer_secuencias
 from io_utils import guardar_fasta_por_tf
@@ -19,12 +20,18 @@ def main():
     4. Guarda cada secuencia en archivos FASTA organizados por factor de transcripción.
     """
 
+    # Agregando un parser para evitar el hardcoding - HJLO
+    parser = argparse.ArgumentParser(description='Este script extrae secuencias FASTA de picos de unión de factores de transcripción.')
+    parser.add_argument('-f', '--fasta', required=True, help='PATH del archivo FASTA')
+    parser.add_argument('-p', '--peaks', required=True, help='PATH del archivo FASTA')
+    parser.add_argument('-o', '--output', required=True, help='PATH del archivo FASTA')
+    
+    args = parser.parse_args()
+    
 
-    print("Este script extrae secuencias FASTA de picos de unión de factores de transcripción.")
-
-    archivo_genoma = os.path.join("data", "E_coli_K12_MG1655_U00096.3.txt")
-    archivo_picos = os.path.join("data", "union_peaks_file.tsv")
-    output_dir = os.path.join("results", "Archivos_Fasta")
+    archivo_genoma = args.fasta
+    archivo_picos = args.peaks
+    output_dir = args.output
 
     # Cargar el genoma y los picos
     genoma = cargar_genoma(archivo_genoma)
@@ -35,6 +42,9 @@ def main():
 
     # Guardar las secuencias en archivos FASTA
     guardar_fasta_por_tf(secuencias_por_tf, output_dir)
+
+    # Mandar mensaje de exito - HJLO
+    print(f'\n\nArchivos generados en: {args.output}')
 
 # ejucion final del script
 if __name__ == "__main__":
