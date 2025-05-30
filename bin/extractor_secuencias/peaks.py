@@ -8,7 +8,9 @@ def extraer_secuencias(peaks_data, genoma):
 
     Retorna:
     secuencias_TF: diccionario con las secuencias agrupadas por TF_name
-"""
+    """
+
+    longitud_genoma = len(genoma) #vamos a ver cuando mide nuestro genoma 
 
     secuencias_TF = {} #inicializamos en un diccionario vacio 
     for pico in peaks_data:
@@ -16,6 +18,13 @@ def extraer_secuencias(peaks_data, genoma):
         start = pico["start"]
         end = pico["end"]
 
+        #Vamos verificar si peak start y peak end no estan fuera del rango del genoma
+        if start < 1 or end > longitud_genoma:
+            print("Error: El rango de los picos es de {star}: {end}")
+            print("n/Fuera del rango del genoma")
+            return 0 
+           
+        
         secuencia = genoma[start-1:end] #vamos a extraer la secuencia del genoma 
          # le agregamos -1 porque el inicio es 1 y en python los indices empiezan desde 0
 

@@ -40,6 +40,13 @@ def leer_archivos(peaks_path):
         print(f"El archivo de picos no se encontró: {peaks_path}")
         return 0 
     
+    #vamos a verificar si el archivo contiene algo
+    with open(peaks_path, 'r') as archivo_picos:
+        contenido = archivo_picos.read().strip()  # Leemos todo el contenido y eliminamos espacios en blanco
+        if not contenido:
+            print("Error: el contenido del archivo se encuentra vacio.")
+            return 0
+    
     lista_picos = [] #vamos a inicializar una lista vacia
     with open(peaks_path, 'r') as archivo_picos: 
         archivo_picos.readline() #esto va a saltar el encabezado 
