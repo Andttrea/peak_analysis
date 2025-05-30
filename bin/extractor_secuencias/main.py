@@ -1,7 +1,7 @@
 import argparse
 from genome import cargar_genoma, leer_archivos
-from bin.extractor_secuencias.peaks import extraer_secuencias
-from bin.extractor_secuencias.io_utils import guardar_fasta_por_tf
+from peaks import extraer_secuencias
+from io_utils import guardar_fasta_por_tf
 # Este script extrae secuencias FASTA de picos de unión de factores de transcripción.
 # Se espera que el usuario proporcione la ruta del archivo FASTA del genoma y el archivo de análisis de picos.
 #Módulos necesarios:
@@ -35,13 +35,16 @@ def main():
 
     # Cargar el genoma y los picos
     genoma = cargar_genoma(archivo_genoma)
-    picos = leer_archivos(archivo_picos)
-
     if not genoma:
-        print("El archivo de picos no se encontro {archivo_picos}")
+        print(f"El archivo de picos no se encontro {archivo_picos}")
         exit(1)
-    
-    # Extraer las secuencias
+    picos = leer_archivos(archivo_picos)
+    #Si se regresa una lista vacia, significa que no se pudo leer el archivo de picos
+    if not picos:
+        print(f"El archivo de picos no se encontro {archivo_picos}")
+        exit(1)
+   
+     # Extraer las secuencias
     secuencias_por_tf = extraer_secuencias(picos, genoma)
 
     # Guardar las secuencias en archivos FASTA

@@ -1,4 +1,5 @@
 import os
+import pandas as pd
 
 def cargar_genoma(fasta_path): 
     """
@@ -14,7 +15,7 @@ def cargar_genoma(fasta_path):
 
     if not os.path.isfile(fasta_path): #Con esto vamos a validar si el archivo existe
         print(f"El archivo de genoma no se encontró: {fasta_path}")
-        exit(1) #Nos vamos a salir del programa 
+        return 0 #regresamos 0 para indicar que no se pudo cargar el genoma
 
     with open(fasta_path, 'r') as archivo_genoma:
         secuencia = "" # las comillas son para inicializar una variable como una cadena vacia
@@ -39,26 +40,26 @@ def leer_archivos(peaks_path):
     if not os.path.isfile(peaks_path): 
         print(f"El archivo de picos no se encontró: {peaks_path}")
         return 0 
-    
-    #vamos a verificar si el archivo contiene algo
-    with open(peaks_path, 'r') as archivo_picos:
-        contenido = archivo_picos.read().strip()  # Leemos todo el contenido y eliminamos espacios en blanco
-        if not contenido:
-            print("Error: el contenido del archivo se encuentra vacio.")
-            return 0
-    
-    lista_picos = [] #vamos a inicializar una lista vacia
-    with open(peaks_path, 'r') as archivo_picos: 
-        archivo_picos.readline() #esto va a saltar el encabezado 
-        for linea in archivo_picos:
-            valores = linea.strip().split("\t")
-            TF_name = valores[1].split(" ")[0] #esto va a tomar el nombre del TF que esta en Dataset IDs
-            peak_start = int(float(valores[3])) #convertimos de float a int porque en el archivo vienen todos los valores con .0 
-            peak_end = int(float(valores[4]))
-            lista_picos.append({   #este va a ser nuestro diccionario
-                "TF_name": TF_name,
-                "start": peak_start,
-                "end": peak_end
-            })
+      #Vamos a leer el archivo con pandas
+    try:
+        df = pd.read_csv(peaks_path, sep="\t") #leemos el archivo como un DataFrame
+        if df.empty:
+            print("ERROR: El archivo se encuentra vacio")
+            return []
+    except Exception as e:
+        print(f"ERROR: No se pudo leer el archivo con pandas: {e}")
+        return []
 
-    return lista_picos 
+    #Procesamos el DataFrame para extraer la información necesaria
+    lista_picos = []
+    for index, row in df.iterrows():
+        tf_name = str(row.iloc[1]).split(" ")[0]  #tomamos el nombre del TF de la segunda columna (Dataset IDs)
+        peak_start = int(float(row.iloc[3]))      #convertimos de float a int (tercera columna)
+        peak_end = int(float(row.iloc[4]))        #convertimos de float a int (cuarta columna)
+        lista_picos.append({
+            "TF_name": tf_name,
+            "start": peak_start,
+            "end": peak_end
+        })
+
+    return lista_picos

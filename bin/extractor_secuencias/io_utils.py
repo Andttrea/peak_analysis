@@ -18,4 +18,6 @@ def guardar_fasta_por_tf(secuencias_por_tf, output_dir):
         with open(nombre_archivo, 'w') as archivo_fasta:
             for i, secuencia in enumerate(secuencias):  
                 archivo_fasta.write(f">{TF_name}_{i+1}\n") #vamos a escribir el encabezado del archivo fasta
-                archivo_fasta.write(f"{secuencia}\n") # #escribimos la secuencia en el archivo fasta
+                # Dividir la secuencia en líneas de 75 caracteres máximo
+                for j in range(0, len(secuencia), 75):
+                    archivo_fasta.write(f"{secuencia[j:j+75]}\n") #escribimos la secuencia en líneas de 75 caracteres
