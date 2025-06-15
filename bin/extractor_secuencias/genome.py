@@ -60,6 +60,6 @@ def leer_archivos(peaks_path):
             "TF_name": tf_name,
             "start": peak_start,
             "end": peak_end
-        })
+        }) #guardamos la información en un diccionario y lo agregamos a la lista
 
     return lista_picos
